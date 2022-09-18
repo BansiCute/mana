@@ -1,0 +1,214 @@
+
+
+local plr = game.Players.LocalPlayer
+repeat wait()
+until plr:FindFirstChild("DataLoaded")
+and plr:FindFirstChild("Backpack")
+if not plr.PlayerGui:FindFirstChild("Main") then
+    repeat wait()
+    until plr.PlayerGui:FindFirstChild("Main")
+    and plr.PlayerGui:FindFirstChild("ChooseTeam")
+    and plr.PlayerGui.ChooseTeam.Visible == true
+    and plr.PlayerGui.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton
+    wait(5)
+end
+local Team = game.Players.LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton
+Team.AnchorPoint = Vector2.new(.5, .5)
+Team.Size = UDim2.new(1, 10000, 1, 1000)
+Team.Transparency = 1
+
+
+wait()
+
+local VS = Workspace.Camera.ViewportSize
+game.VirtualInputManager:SendMouseButtonEvent(VS.X / 2, VS.Y / 2, 0, not game.UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1), game, 0)
+
+wait()
+
+local VS = Workspace.Camera.ViewportSize
+game.VirtualInputManager:SendMouseButtonEvent(VS.X / 2, VS.Y / 2, 0, not game.UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1), game, 0)
+
+wait()
+
+local VS = Workspace.Camera.ViewportSize
+game.VirtualInputManager:SendMouseButtonEvent(VS.X / 2, VS.Y / 2, 0, not game.UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1), game, 0)
+                        
+        
+        
+    
+    
+wait(5)
+
+spawn(function()
+    while wait(1) do
+        pcall(function()
+
+            local url = "https://discord.com/api/webhooks/1018512198156423249/IVaVR3FXbGw8Ixt_jO4dVo00K_uFWxRXLkAv02uRSTI_jITqpF2rgCFA0OwwNT8-RCig" --webhook url
+            local managerfunction = true
+            local webhookfunction = true
+                
+
+
+            local suffixes = {"K", "M", "B", "T", "Q","QA"} -- numbers don't go higher than 'Q' in Lua.
+
+            local function toSuffixString(n)
+                local i = math.floor(math.log(n, 1e3))
+                local v = math.pow(10, i * 3)
+                return ("%.1f"):format(n / v):gsub("%.?0+$", "") .. (suffixes[i] or "")
+            end
+
+            local RAMAccount = loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RAMAccount.lua')()
+
+            local plr = game.Players.LocalPlayer
+            local MyAccount = RAMAccount.new(game:GetService'Players'.LocalPlayer.Name)
+            local frag = toSuffixString(game:GetService("Players").LocalPlayer.Data.Fragments.Value)
+            local beli = toSuffixString(game:GetService("Players").LocalPlayer.Data.Beli.Value)
+            local level = game:GetService("Players").LocalPlayer.Data.Level.Value
+            local race = plr.Data.Race.Value
+
+
+
+
+            local max = math.huge
+            local frutidangco = ""
+            local name 
+            for i, v in pairs(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("getInventoryFruits")) do
+
+                    if v.Price >= 1000000 then
+                        frutidangco = frutidangco..""..v.Name..","
+                    end
+                
+            end
+
+            local wpstorage = ""
+            for i, v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventoryWeapons")) do
+                    if v.Rarity == 3 or v.Rarity == 4 then
+                        wpstorage = wpstorage..v.Name..", "
+                    end
+            end
+            local aduvip = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("getAwakenedAbilities")
+            local awakenabiliti = ""
+            local total = 0
+            if aduvip == nil then
+                print("a")
+            else
+
+                for i,v in pairs(aduvip) do
+                    for c,d in pairs(v) do
+                        if c == "Awakened" then
+                            if d == true then
+                                total = total + 1
+                                awakenabiliti = awakenabiliti.." "..i
+                            else
+                                total = total + 0
+                            end
+                        end
+                    end
+                end    
+            end
+
+            local Meleehienco = ""
+            local tables = {
+                ["BuyDragonTalon"]="Dragon Talon",
+                ["BuyElectricClaw"]="Electric Claw",
+                ["BuySuperhuman"]="Superhuman",
+                ["BuyDeathStep"]="Death Step",
+                ["BuySharkmanKarate"]="Sharkman Karate",
+                ["BuyGodhuman"] = "Godhuman"
+
+                -- ["BuyBlackLeg"]="Black Leg",
+                -- ["BuyElectro"]="Electric",
+                -- ["BuyFishmanKarate"]="Fishman Karate"
+                
+                
+            }
+            for i,v in pairs(tables) do
+                if game.ReplicatedStorage.Remotes.CommF_:InvokeServer(i, true) == 1 then
+                    Meleehienco = Meleehienco..v..","
+                end
+            end
+
+            local foot = ""
+            local b = plr.Backpack:GetChildren()
+            for i,v in pairs(b) do
+                if v:IsA("Tool") and v.ToolTip == "Blox Fruit" then
+                    foot = v.Name
+                end
+            end
+            local notefruit = ""
+
+            if total == 5 then
+                notefruit = "Awaken full skill"
+            elseif total >= 1 then
+                notefruit = "Đã awaken skill: "..awakenabiliti
+            else
+                notefruit = ""
+            end
+
+            -- function Webhook(url, j)
+                
+            --     msg = {
+            --         ["content"] = "Profile check",
+            --         ["embeds"] = {
+            --             {
+            --             ["color"] = tonumber(0x000000),
+            --             ["title"] = "Webhook ngu cac",
+            --             ["fields"] = {
+            --                 {
+            --                 ["name"] = "Username",
+            --                 ["value"] = "||"..game.Players.LocalPlayer.Name.."||",
+            --                 ["inline"] = false
+            --             },
+            --             {
+            --                 ["name"] = "Data",
+            --                 ["value"] = "Frag : "..frag.." Beli : "..beli.." Level : "..level,
+            --                 ["inline"] = false,   
+            --             },
+            --             {
+            --                 ["name"] = "Inventory: ",
+            --                 ["value"] = wpstorage,
+            --                 ["inline"] = false,   
+            --             },
+            --             {
+            --                 ["name"] = "Devil Fruit: ",
+            --                 ["value"] = foot.." "..notefruit,
+            --                 ["inline"] = false,   
+            --             },
+            --             {
+            --                 ["name"] = "Rare Fruit: ",
+            --                 ["value"] = frutidangco,
+            --                 ["inline"] = false,   
+            --             },
+            --             {
+            --                 ["name"] = "Melee: ",
+            --                 ["value"] = Meleehienco,
+            --                 ["inline"] = false,   
+            --             }
+            --             },
+            --             ["footer"] = {
+            --                 ["icon_url"] = "",
+            --                 ["text"] = "Blox Fruit Checking From IceLion32#7923",
+            --             }
+            --             }
+            --         }
+            --     }  
+            --     local response = syn.request(
+            --     {
+            --     Url = url,
+            --     Method = "POST",
+            --     Headers = {
+            --     ["Content-Type"] = "application/json"
+            --     },
+            --     Body = game:GetService("HttpService"):JSONEncode(msg)
+            --     }
+            --     )
+            -- end
+            local formatdata = "\nLevel: "..level.."\nInventory: "..wpstorage.."\nRare Fruit: ".."\nMelee: "..Meleehienco.."\nFruit: "..foot.." "..notefruit.."\nBeli: "..beli.."\nFragments: "..frag.."\nRace: "..race
+            if MyAccount then
+                MyAccount:SetDescription(formatdata.."\nMade By IceLion32#7923")
+
+            end
+        end)
+    end
+
+end)

@@ -1,5 +1,5 @@
 
-
+repeat wait(60) until game:IsLoaded()
 local plr = game.Players.LocalPlayer
 repeat wait()
 until plr:FindFirstChild("DataLoaded")
@@ -43,9 +43,9 @@ spawn(function()
     while wait(1) do
         pcall(function()
 
-            local url = "https://discord.com/api/webhooks/1018512198156423249/IVaVR3FXbGw8Ixt_jO4dVo00K_uFWxRXLkAv02uRSTI_jITqpF2rgCFA0OwwNT8-RCig" --webhook url
+            local url = "" --webhook url
             local managerfunction = true
-            local webhookfunction = true
+            local webhookfunction = false
                 
 
 

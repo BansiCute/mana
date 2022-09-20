@@ -1,44 +1,4 @@
-
-repeat wait(60) until game:IsLoaded()
-local plr = game.Players.LocalPlayer
-repeat wait()
-until plr:FindFirstChild("DataLoaded")
-and plr:FindFirstChild("Backpack")
-if not plr.PlayerGui:FindFirstChild("Main") then
-    repeat wait()
-    until plr.PlayerGui:FindFirstChild("Main")
-    and plr.PlayerGui:FindFirstChild("ChooseTeam")
-    and plr.PlayerGui.ChooseTeam.Visible == true
-    and plr.PlayerGui.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton
-    wait(5)
-end
-local Team = game.Players.LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton
-Team.AnchorPoint = Vector2.new(.5, .5)
-Team.Size = UDim2.new(1, 10000, 1, 1000)
-Team.Transparency = 1
-
-
-wait()
-
-local VS = Workspace.Camera.ViewportSize
-game.VirtualInputManager:SendMouseButtonEvent(VS.X / 2, VS.Y / 2, 0, not game.UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1), game, 0)
-
-wait()
-
-local VS = Workspace.Camera.ViewportSize
-game.VirtualInputManager:SendMouseButtonEvent(VS.X / 2, VS.Y / 2, 0, not game.UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1), game, 0)
-
-wait()
-
-local VS = Workspace.Camera.ViewportSize
-game.VirtualInputManager:SendMouseButtonEvent(VS.X / 2, VS.Y / 2, 0, not game.UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1), game, 0)
-                        
-        
-        
-    
-    
-wait(5)
-
+repeat wait() until game:IsLoaded()
 spawn(function()
     while wait(1) do
         pcall(function()

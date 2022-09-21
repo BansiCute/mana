@@ -2,7 +2,14 @@ repeat wait() until game:IsLoaded()
 spawn(function()
     while wait(1) do
         pcall(function()
-
+            local sea = ""
+            if game.PlaceId == 2753915549 then
+                sea  = "Sea 1"
+            elseif game.PlaceId == 4442272183 then
+                sea  = "Sea 2"
+            elseif game.PlaceId == 7449423635 then
+                sea = "Sea 3"
+            end
             local url = "" --webhook url
             local managerfunction = true
             local webhookfunction = false
@@ -163,7 +170,7 @@ spawn(function()
             --     }
             --     )
             -- end
-            local formatdata = "\nLevel: "..level.."\nInventory: "..wpstorage.."\nRare Fruit: ".."\nMelee: "..Meleehienco.."\nFruit: "..foot.." "..notefruit.."\nBeli: "..beli.."\nFragments: "..frag.."\nRace: "..race
+            local formatdata = sea.."\nLevel: "..level.."\nInventory: "..wpstorage.."\nRare Fruit: ".."\nMelee: "..Meleehienco.."\nFruit: "..foot.." "..notefruit.."\nBeli: "..beli.."\nFragments: "..frag.."\nRace: "..race
             if MyAccount then
                 MyAccount:SetDescription(formatdata.."\nMade By IceLion32#7923")
 

@@ -4,11 +4,11 @@ spawn(function()
         pcall(function()
             local sea = ""
             if game.PlaceId == 2753915549 then
-                sea  = "Sea 1"
+                sea  = "Sea: 1"
             elseif game.PlaceId == 4442272183 then
-                sea  = "Sea 2"
+                sea  = "Sea: 2"
             elseif game.PlaceId == 7449423635 then
-                sea = "Sea 3"
+                sea = "Sea: 3"
             end
             local url = "" --webhook url
             local managerfunction = true

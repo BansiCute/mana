@@ -112,7 +112,7 @@ spawn(function()
 
             local formatdata = sea
             if MyAccount then
-                MyAccount:SetAlias(formatdata.."\nMade By IceLion32#7923")
+                MyAccount:SetAlias(formatdata)
 
             end
         end)

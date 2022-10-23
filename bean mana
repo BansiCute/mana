@@ -1,238 +1,91 @@
-repeat wait() until game:IsLoaded()
-repeat wait() until game:IsLoaded()
 spawn(function()
-    while wait(1) do
-        pcall(function()
-            local sea = ""
-            if game.PlaceId == 2753915549 then
-                sea  = "Sea: 1"
-            elseif game.PlaceId == 4442272183 then
-                sea  = "Sea: 2"
-            elseif game.PlaceId == 7449423635 then
-                sea = "Sea: 3"
+    while wait(5) do
+
+        local function post(url,body)
+        
+            syn.request( {
+                Method = 'POST',
+                Url = url,
+                Body = body
+            })
+        
+        end
+        local seacheck = ""
+        if game.PlaceId == 2753915549 then
+            seacheck  = "Sea: 1"
+        elseif game.PlaceId == 4442272183 then
+            seacheck  = "Sea: 2"
+        elseif game.PlaceId == 7449423635 then
+            seacheck = "Sea: 3"
+        end 
+        local suffixes = {"K", "M", "B", "T", "Q","QA"}
+        local function toSuffixString(n)
+            local i = math.floor(math.log(n, 1e3))
+            local v = math.pow(10, i * 3)
+            return ("%.1f"):format(n / v):gsub("%.?0+$", "") .. (suffixes[i] or "")
+            
+        end
+        local plr = game.Players.LocalPlayer
+        local Fragment = toSuffixString(game:GetService("Players").LocalPlayer.Data.Fragments.Value)
+        local Beli = toSuffixString(game:GetService("Players").LocalPlayer.Data.Beli.Value)
+        local Level = game:GetService("Players").LocalPlayer.Data.Level.Value
+        local Race = plr.Data.Race.Value
+        local weapon = ""
+        local devilfruit = ""
+        local mac = 0
+        local awacount = 0
+        local skill = ""
+        local fruitnote = ""
+        local CurrentFruit = ""
+        local Meleehienco = ""
+        for i, v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventory")) do
+            if v.Rarity == 3 and v.Type == "Sword" or v.Rarity == 4 and v.Type == "Sword" then
+                weapon = weapon..v.Name..", "
+            elseif v.Rarity == 3 and v.Type == "Blox Fruit" or v.Rarity == 4 and v.Type == "Blox Fruit" then
+                devilfruit = devilfruit..v.Name..", "
             end
-            local url = "" --webhook url
-            local managerfunction = true
-            local webhookfunction = false
-                
-
-
-            local suffixes = {"K", "M", "B", "T", "Q","QA"} -- numbers don't go higher than 'Q' in Lua.
-
-            local function toSuffixString(n)
-                local i = math.floor(math.log(n, 1e3))
-                local v = math.pow(10, i * 3)
-                return ("%.1f"):format(n / v):gsub("%.?0+$", "") .. (suffixes[i] or "")
-            end
-
-            local RAMAccount = loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RAMAccount.lua')()
-
-            local plr = game.Players.LocalPlayer
-            local MyAccount = RAMAccount.new(game:GetService'Players'.LocalPlayer.Name)
-            local frag = toSuffixString(game:GetService("Players").LocalPlayer.Data.Fragments.Value)
-            local beli = toSuffixString(game:GetService("Players").LocalPlayer.Data.Beli.Value)
-            local level = game:GetService("Players").LocalPlayer.Data.Level.Value
-            local race = plr.Data.Race.Value
-
-
-
-
-            local max = math.huge
-            local frutidangco = ""
-            local name 
-            for i, v in pairs(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("getInventoryFruits")) do
-
-                    if v.Price >= 1000000 then
-                        frutidangco = frutidangco..""..v.Name..","
-                    end
-                
-            end
-
-            local wpstorage = ""
-            for i, v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventoryWeapons")) do
-                    if v.Rarity == 3 or v.Rarity == 4 then
-                        wpstorage = wpstorage..v.Name..", "
-                    end
-            end
-            local aduvip = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("getAwakenedAbilities")
-            local awakenabiliti = ""
-            local total = 0
-            if aduvip == nil then
-                print("a")
-            else
-
-                for i,v in pairs(aduvip) do
-                    for c,d in pairs(v) do
-                        if c == "Awakened" then
-                            if d == true then
-                                total = total + 1
-                                awakenabiliti = awakenabiliti.." "..i
-                            else
-                                total = total + 0
-                            end
-                        end
-                    end
-                end    
-            end
-
-            local Meleehienco = ""
-            local tables = {
-                ["BuyDragonTalon"]="Dragon Talon",
-                ["BuyElectricClaw"]="Electric Claw",
-                ["BuySuperhuman"]="Superhuman",
-                ["BuyDeathStep"]="Death Step",
-                ["BuySharkmanKarate"]="Sharkman Karate",
-                ["BuyGodhuman"] = "Godhuman"
-
-                
-                
-            }
-            for i,v in pairs(tables) do
-                if game.ReplicatedStorage.Remotes.CommF_:InvokeServer(i, true) == 1 then
-                    Meleehienco = Meleehienco..v..","
+        end
+        if game.ReplicatedStorage.Remotes.CommF_:InvokeServer("getAwakenedAbilities") ~= nil then
+            for i,v in pairs(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("getAwakenedAbilities")) do
+                mac = mac + 1
+                if v.Awakened == true then
+                    awacount = awacount+ 1
+                    skill = skill..i..", "
                 end
-            end
-
-            local foot = ""
-            local b = plr.Backpack:GetChildren()
-            for i,v in pairs(b) do
-                if v:IsA("Tool") and v.ToolTip == "Blox Fruit" then
-                    foot = v.Name
-                end
-            end
-            local notefruit = ""
-
-            if total == 5 then
-                notefruit = "Awaken full skill"
-            elseif total >= 1 then
-                notefruit = "Đã awaken skill: "..awakenabiliti
-            else
-                notefruit = ""
-            end
-
-            local formatdata = sea
-            if MyAccount then
-                MyAccount:SetAlias(formatdata)
 
             end
-        end)
+            
+            if awacount == mac then
+                fruitnote = " Đã awaken full skill"
+            else 
+                fruitnote = " Đã awaken skill"..skill
+            end
+        end 
+        
+        for i,v in pairs(plr.Backpack:GetChildren()) do
+            if v:IsA("Tool") and v.ToolTip == "Blox Fruit" then
+                CurrentFruit = v.Name
+            end
+        end
+        local BloxFruit = CurrentFruit..fruitnote
+        local Melee = {
+            ["BuyDragonTalon"]="Dragon Talon",
+            ["BuyElectricClaw"]="Electric Claw",
+            ["BuySuperhuman"]="Superhuman",
+            ["BuyDeathStep"]="Death Step",
+            ["BuySharkmanKarate"]="Sharkman Karate",
+            ["BuyGodhuman"] = "Godhuman"
+        }
+        for i,v in pairs(Melee) do
+            if game.ReplicatedStorage.Remotes.CommF_:InvokeServer(i, true) == 1 then
+                Meleehienco = Meleehienco..v..","
+            end
+        end
+        local urldescription = "http://localhost:7963/SetDescription?Account="..plr.Name
+        local urldalias = "http://localhost:7963/SetAlias?Account="..plr.Name
+        local description_data = "\nLevel: "..Level.."\nInventory: "..weapon.."\nMelee: "..Meleehienco.."\nFruit đang ăn: "..BloxFruit.."\nFruit Store: "..devilfruit.."\nBeli: "..Beli.."\nFragment: "..Fragment.."\nMade by IceLion32"
+        local alias_data = seacheck
+        post(urldescription,description_data)
+        post(urldalias,alias_data)
     end
-
-end)
-spawn(function()
-    while wait(1) do
-        pcall(function()
-            local sea = ""
-            if game.PlaceId == 2753915549 then
-                sea  = "Sea: 1"
-            elseif game.PlaceId == 4442272183 then
-                sea  = "Sea: 2"
-            elseif game.PlaceId == 7449423635 then
-                sea = "Sea: 3"
-            end
-            local url = "" --webhook url
-            local managerfunction = true
-            local webhookfunction = false
-                
-
-
-            local suffixes = {"K", "M", "B", "T", "Q","QA"} -- numbers don't go higher than 'Q' in Lua.
-
-            local function toSuffixString(n)
-                local i = math.floor(math.log(n, 1e3))
-                local v = math.pow(10, i * 3)
-                return ("%.1f"):format(n / v):gsub("%.?0+$", "") .. (suffixes[i] or "")
-            end
-
-            local RAMAccount = loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RAMAccount.lua')()
-
-            local plr = game.Players.LocalPlayer
-            local MyAccount = RAMAccount.new(game:GetService'Players'.LocalPlayer.Name)
-            local frag = toSuffixString(game:GetService("Players").LocalPlayer.Data.Fragments.Value)
-            local beli = toSuffixString(game:GetService("Players").LocalPlayer.Data.Beli.Value)
-            local level = game:GetService("Players").LocalPlayer.Data.Level.Value
-            local race = plr.Data.Race.Value
-
-
-
-
-            local max = math.huge
-            local frutidangco = ""
-            local name 
-            for i, v in pairs(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("getInventoryFruits")) do
-
-                    if v.Price >= 1000000 then
-                        frutidangco = frutidangco..""..v.Name..","
-                    end
-                
-            end
-
-            local wpstorage = ""
-            for i, v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventoryWeapons")) do
-                    if v.Rarity == 3 or v.Rarity == 4 then
-                        wpstorage = wpstorage..v.Name..", "
-                    end
-            end
-            local aduvip = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("getAwakenedAbilities")
-            local awakenabiliti = ""
-            local total = 0
-            if aduvip == nil then
-                print("a")
-            else
-
-                for i,v in pairs(aduvip) do
-                    for c,d in pairs(v) do
-                        if c == "Awakened" then
-                            if d == true then
-                                total = total + 1
-                                awakenabiliti = awakenabiliti.." "..i
-                            else
-                                total = total + 0
-                            end
-                        end
-                    end
-                end    
-            end
-
-            local Meleehienco = ""
-            local tables = {
-                ["BuyDragonTalon"]="Dragon Talon",
-                ["BuyElectricClaw"]="Electric Claw",
-                ["BuySuperhuman"]="Superhuman",
-                ["BuyDeathStep"]="Death Step",
-                ["BuySharkmanKarate"]="Sharkman Karate",
-                ["BuyGodhuman"] = "Godhuman"
-                
-            }
-            for i,v in pairs(tables) do
-                if game.ReplicatedStorage.Remotes.CommF_:InvokeServer(i, true) == 1 then
-                    Meleehienco = Meleehienco..v..","
-                end
-            end
-
-            local foot = ""
-            local b = plr.Backpack:GetChildren()
-            for i,v in pairs(b) do
-                if v:IsA("Tool") and v.ToolTip == "Blox Fruit" then
-                    foot = v.Name
-                end
-            end
-            local notefruit = ""
-
-            if total == 5 then
-                notefruit = "Awaken full skill"
-            elseif total >= 1 then
-                notefruit = "Đã awaken skill: "..awakenabiliti
-            else
-                notefruit = ""
-            end
-
-            local formatdata = "\nLevel: "..level.."\nInventory: "..wpstorage.."\nMelee: "..Meleehienco.."\nFruit đang ăn: "..foot.." "..notefruit.."\nFruit Store: "..frutidangco.."\nBeli: "..beli.."\nFragment: "..frag
-            if MyAccount then
-                MyAccount:SetDescription(formatdata.."\nMade By IceLion32#7923")
-
-            end
-        end)
-    end
-
 end)

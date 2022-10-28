@@ -1,5 +1,5 @@
 spawn(function()
-    while wait(5) do
+    while wait() do
 
         local function post(url,body)
         
